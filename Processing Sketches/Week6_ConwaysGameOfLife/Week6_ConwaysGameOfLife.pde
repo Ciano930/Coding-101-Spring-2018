@@ -15,7 +15,7 @@ int gridCurrent[][];
   
 void setup(){
   size(1000, 1000);
-  scale = 10;
+  scale =10;
   rowScale = width/scale;
   colScale = height/scale;
   
@@ -23,7 +23,7 @@ void setup(){
   gridCurrent = new int[rowScale][colScale];
   gridNext = new int[rowScale][colScale];
   
-  speed = 60;//This is one update a second
+  speed = 10;//This is one update a second
   frame = 0;
   
   
@@ -33,17 +33,17 @@ void setup(){
 
 void draw(){
   //first we update the frame
-  frame++;
+  /*frame++;
   //For here lets create a speed system
   if(frame == speed)
-  {
+  {*/
     print("Frame Update\n");
     //first lets reset frame to 0
     frame = 0;
     
     calculateGrid();
     drawGrid();
-  }
+  /*}*/
 }
 
 void calculateGrid(){
@@ -91,7 +91,7 @@ void calculateGrid(){
       } else if(gridCurrent[i][j] < 1 && neighbors == 3){
         gridNext[i][j] = 1;
       } else if(gridCurrent[i][j] > 0){
-        gridNext[i][j] = (gridCurrent[i][j]+20);//Now the cell grows older
+        //gridNext[i][j] = (gridCurrent[i][j]+20);//Now the cell grows older
       //Rules that generate new cells
       }
     }
@@ -104,7 +104,12 @@ void drawGrid(){
   for(int i = 0; i < rowScale; i++){
     for(int j = 0; j < colScale; j++){
       //Now we can draw our square!
-      fill(gridCurrent[i][j], 0, 255);
+      if(gridCurrent[i][j] == 0)
+      {
+        fill(0);
+      }else{
+        fill(255);
+      }
       rect(scale*i, scale*j, rowScale, colScale);
     }
   }
@@ -113,7 +118,8 @@ void drawGrid(){
 void randomiseGrid(){
   for(int i = 0; i < rowScale; i++){
     for(int j = 0; j < colScale; j++){
-      gridCurrent[i][j] = int(random(20));
+      gridCurrent[i][j] = int(random(0,2));
+      //print("random = " + gridCurrent[i][j]);
     }
   }
 }
