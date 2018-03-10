@@ -17,7 +17,7 @@ void draw(){
   for(int i = 0; i < gridRow * gridScale; i=i+gridScale){
     for(int j = 0; j < gridCol * gridScale; j=j+gridScale){
       //Now we can draw a rectangle!
-      fill(i,0,j);
+      fill(i,j,0);
       rect(i, j, gridScale, gridScale);
     }
   } 
