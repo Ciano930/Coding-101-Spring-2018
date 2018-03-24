@@ -121,7 +121,7 @@ int calculateNeighbours(int row, int col){
       neighbours++;
     }
   }
-  print("\nneighbours: " +neighbours);
+  //print("\nneighbours: " +neighbours);
   return neighbours;
 }
 
