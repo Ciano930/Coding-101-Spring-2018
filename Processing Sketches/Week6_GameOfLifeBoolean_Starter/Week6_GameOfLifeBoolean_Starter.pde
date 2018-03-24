@@ -105,3 +105,12 @@ int calculateNeighbours(int row, int col){
   }
   return neighbours;
 }
+
+
+void updateGrid(){
+  for(int row = 0; row < rowScale; row++){
+    for(int col = 0; col< colScale; col++){
+      currentGen[row][col] = nextGen[row][col];
+    }
+  }
+}
