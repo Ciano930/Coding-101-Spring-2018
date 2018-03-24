@@ -62,18 +62,20 @@ void calculateGrid(){
     for(int col = 0; col < colScale; col++){
       int neighbours = 0;
       //This is where we calculate our neighbours
-      
       neighbours = calculateNeighbours(row, col);
+      
+      print("\nneighbours = " + neighbours);
       if(currentGen[row][col]){
         if(neighbours == 3 || neighbours == 2){
           //Cell stays alive
-          nextGen[row][col] = true;
+          nextGen[row][col] = currentGen[row][col];
+          
         } else {
           //dead cell
           nextGen[row][col] = false;
         }//End of Rules 1,2 and, 3
       } else {
-        if(neighbours == 3){
+        if(!currentGen[row][col] && neighbours == 3){
           //New cell lives
           nextGen[row][col] = true;
         }
@@ -91,28 +93,32 @@ int calculateNeighbours(int row, int col){
   */
   //Top row
   if(row-1 >= 0){
-    if(
-      col-1 >= 0 && currentGen[row-1][col-1] ||
-      currentGen[row-1][col] ||
-      col+1 < colScale && currentGen[row-1][col+1]
-      ){
+    if(col-1 >= 0 && currentGen[row-1][col-1]){
+      neighbours++;
+    }
+    if(currentGen[row-1][col]){
+      neighbours++;
+    }
+    if(col+1 < colScale && currentGen[row-1][col+1]){
       neighbours++;
     }
   }
   //middle row
-  if( 
-    col-1 >= 0 && currentGen[row][col-1] ||
-    col+1 < colScale && currentGen[row][col+1]
-    ){
+  if( col-1 >= 0 && currentGen[row][col-1]){
+    neighbours++;
+  }
+  if( col+1 < colScale && currentGen[row][col+1]){
     neighbours++;
   }
   //bottom row
   if(row+1 < rowScale){
-    if(
-      col-1 >= 0 && currentGen[row+1][col-1] ||
-      currentGen[row+1][col]||
-      col+1 < colScale && currentGen[row+1][col+1]
-      ){
+    if(col-1 >= 0 && currentGen[row+1][col-1]){
+      neighbours++;
+    }
+    if(currentGen[row+1][col]){
+      neighbours++;
+    }
+    if(col+1 < colScale && currentGen[row+1][col+1]){
       neighbours++;
     }
   }
