@@ -64,8 +64,6 @@ void calculateGrid(){
       //This is where we calculate our neighbours
       
       neighbours = calculateNeighbours(row, col);
-      
-      
       if(currentGen[row][col]){
         if(neighbours == 3 || neighbours == 2){
           //Cell stays alive
@@ -102,12 +100,19 @@ int calculateNeighbours(int row, int col){
     }
   }
   //middle row
-  if(currentGen[row][col-1] || currentGen[row][col+1]){
+  if( 
+    col-1 >= 0 && currentGen[row][col-1] ||
+    col+1 < colScale && currentGen[row][col+1]
+    ){
     neighbours++;
   }
   //bottom row
   if(row+1 < rowScale){
-    if(currentGen[row+1][col-1] || currentGen[row+1][col]|| currentGen[row+1][col+1]){
+    if(
+      col-1 >= 0 && currentGen[row+1][col-1] ||
+      currentGen[row+1][col]||
+      col+1 < colScale && currentGen[row+1][col+1]
+      ){
       neighbours++;
     }
   }
