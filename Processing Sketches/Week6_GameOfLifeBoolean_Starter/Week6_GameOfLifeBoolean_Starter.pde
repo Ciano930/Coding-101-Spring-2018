@@ -1,5 +1,6 @@
 //Array 2D
 boolean[][] currentGen;
+boolean[][] nextGen;
 int scale;
 int colScale;
 int rowScale;
@@ -10,11 +11,14 @@ void setup(){
   rowScale = width/scale;
   colScale = height/scale;
   currentGen = new boolean[rowScale][colScale];
+  nextGen = new boolean[rowScale][colScale];
   randomizeGrid();
+  nextGen = currentGen;
 }
 
 void draw(){
-  randomizeGrid();
+  //randomizeGrid();
+  calculateGrid();
   drawGrid();
   
 }
@@ -47,4 +51,33 @@ void drawGrid(){
       rect(row*scale, col*scale, scale, scale);
     }
   }
+}
+
+void calculateGrid(){
+  //1. If a live cell has 2 or 3 live neighbours, it lives to the next generation.
+  //2. If a live cell has 3 or more live neighbours, it dies from overpopulation
+  //3. If a live cell has less than 2 live neighbours, it dies from underpopulation
+  //4. If a dead cell has exactly 3 live neighbours, it comes to life from reproduction
+  for(int row = 0; row < rowScale; row++){
+    for(int col = 0; col < colScale; col++){
+      int neighbours = 8;
+      //This is where we calculate our neighbours
+      //neighbours = neighbours();
+      if(currentGen[row][col]){
+        if(neighbours == 3 || neighbours == 2){
+          //Cell stays alive
+          nextGen[row][col] = true;
+        } else {
+          //dead cell
+          nextGen[row][col] = false;
+        }//End of Rules 1,2 and, 3
+      } else {
+        if(neighbours == 3){
+          //New cell lives
+          nextGen[row][col] = true;
+        }
+      }//End rule 4
+    }//end Col loop
+  }//end Row loop
+  
 }
