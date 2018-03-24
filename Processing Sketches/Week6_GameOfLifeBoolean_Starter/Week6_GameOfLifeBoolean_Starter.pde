@@ -60,9 +60,12 @@ void calculateGrid(){
   //4. If a dead cell has exactly 3 live neighbours, it comes to life from reproduction
   for(int row = 0; row < rowScale; row++){
     for(int col = 0; col < colScale; col++){
-      int neighbours = 8;
+      int neighbours = 0;
       //This is where we calculate our neighbours
-      //neighbours = neighbours();
+      
+      neighbours = calculateNeighbours(row, col);
+      
+      
       if(currentGen[row][col]){
         if(neighbours == 3 || neighbours == 2){
           //Cell stays alive
@@ -79,5 +82,26 @@ void calculateGrid(){
       }//End rule 4
     }//end Col loop
   }//end Row loop
-  
+}
+
+int calculateNeighbours(int row, int col){
+  int neighbours = 0;
+  /*
+  [-1,-1][-1, 0][-1,+1]
+  [ 0,-1][ 0, 0][ 0,+1]
+  [+1,-1][+1, 0][+1,+1]
+  */
+  //Top row
+  if(currentGen[row-1][col-1] || currentGen[row-1][col] || currentGen[row-1][col+1]){
+    neighbours++;
+  }
+  //middle row
+  if(currentGen[row][col-1] || currentGen[row][col+1]){
+    neighbours++;
+  }
+  //bottom row
+  if(currentGen[row+1][col-1] || currentGen[row+1][col]|| currentGen[row+1][col+1]){
+    neighbours++;
+  }
+  return neighbours;
 }
