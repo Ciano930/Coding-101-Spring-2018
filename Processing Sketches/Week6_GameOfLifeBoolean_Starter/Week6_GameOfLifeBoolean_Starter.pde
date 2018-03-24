@@ -92,20 +92,27 @@ int calculateNeighbours(int row, int col){
   [+1,-1][+1, 0][+1,+1]
   */
   //Top row
-  if(currentGen[row-1][col-1] || currentGen[row-1][col] || currentGen[row-1][col+1]){
-    neighbours++;
+  if(row-1 >= 0){
+    if(
+      col-1 >= 0 && currentGen[row-1][col-1] ||
+      currentGen[row-1][col] ||
+      col+1 < colScale && currentGen[row-1][col+1]
+      ){
+      neighbours++;
+    }
   }
   //middle row
   if(currentGen[row][col-1] || currentGen[row][col+1]){
     neighbours++;
   }
   //bottom row
-  if(currentGen[row+1][col-1] || currentGen[row+1][col]|| currentGen[row+1][col+1]){
-    neighbours++;
+  if(row+1 < rowScale){
+    if(currentGen[row+1][col-1] || currentGen[row+1][col]|| currentGen[row+1][col+1]){
+      neighbours++;
+    }
   }
   return neighbours;
 }
-
 
 void updateGrid(){
   for(int row = 0; row < rowScale; row++){
